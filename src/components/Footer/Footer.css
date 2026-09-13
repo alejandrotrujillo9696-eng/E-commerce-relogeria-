@@ -1,0 +1,419 @@
+/* =========================================
+   FOOTER PRINCIPAL
+========================================= */
+
+.site-footer {
+  width: 100%;
+  background: #111111;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+
+/* =========================================
+   PARTE SUPERIOR
+========================================= */
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 1200px;
+  margin: 0 auto;
+
+  padding: 18px 35px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* FRASE */
+
+.footer-brand-phrase h2 {
+  margin: 0;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   REDES SOCIALES
+========================================= */
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-social-label {
+  font-size: 0.75rem;
+  color: #aaaaaa;
+}
+
+.footer-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  color: #bbbbbb;
+  text-decoration: none;
+
+  font-size: 0.75rem;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer-social-link:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+.footer-main {
+  padding: 25px 35px 20px;
+}
+
+.footer-main .container {
+  max-width: 1200px;
+}
+
+
+/* =========================================
+   COLUMNAS
+========================================= */
+
+.footer-content {
+  align-items: flex-start;
+}
+
+.footer-column {
+  margin-bottom: 0;
+}
+
+
+/* =========================================
+   MARCA
+========================================= */
+
+.footer-brand-name {
+  margin: 0 0 8px;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+
+  color: #ffffff;
+}
+
+.footer-brand-name span {
+  display: block;
+}
+
+.footer-brand-description {
+  max-width: 260px;
+
+  margin: 0 0 10px;
+
+  font-size: 0.72rem;
+  line-height: 1.5;
+
+  color: #aaaaaa;
+}
+
+.footer-brand-line {
+  width: 35px;
+  height: 1px;
+
+  margin: 8px 0;
+
+  background: #777777;
+}
+
+.footer-brand-location {
+  margin: 0;
+
+  font-size: 0.7rem;
+  color: #999999;
+}
+
+
+/* =========================================
+   TÍTULOS DE COLUMNAS
+========================================= */
+
+.footer-column-title {
+  margin: 0 0 10px;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   ENLACES
+========================================= */
+
+.footer-links {
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 5px;
+}
+
+.footer-links a {
+  font-size: 0.72rem;
+
+  color: #aaaaaa;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+
+/* =========================================
+   CONTACTO
+========================================= */
+
+.footer-contact {
+  margin: 0;
+}
+
+.footer-contact p {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  margin: 0 0 7px;
+
+  font-size: 0.7rem;
+  line-height: 1.4;
+
+  color: #aaaaaa;
+}
+
+.footer-contact i {
+  width: 14px;
+
+  margin-top: 2px;
+
+  color: #888888;
+}
+
+.footer-contact a {
+  color: #aaaaaa;
+  text-decoration: none;
+
+  word-break: break-word;
+
+  transition: color 0.2s ease;
+}
+
+.footer-contact a:hover {
+  color: #ffffff;
+}
+
+
+/* =========================================
+   BENEFICIOS
+========================================= */
+
+.footer-benefits {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+  padding: 10px 20px;
+}
+
+.footer-benefits .container {
+  max-width: 1200px;
+}
+
+.footer-benefits-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.footer-benefit {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  font-size: 0.68rem;
+
+  color: #aaaaaa;
+}
+
+.footer-benefit i {
+  font-size: 0.75rem;
+  color: #cccccc;
+}
+
+
+/* =========================================
+   COPYRIGHT
+========================================= */
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 10px 20px;
+
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.footer-bottom p {
+  margin: 0;
+
+  font-size: 0.65rem;
+
+  color: #777777;
+}
+
+.footer-bottom span {
+  color: #dddddd;
+  font-weight: 500;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+
+  .footer-top {
+    padding: 16px 25px;
+  }
+
+  .footer-main {
+    padding: 25px;
+  }
+
+  .footer-benefits-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 30px;
+  }
+
+}
+
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 768px) {
+
+  .footer-top {
+    flex-direction: column;
+    gap: 12px;
+
+    text-align: center;
+
+    padding: 18px 20px;
+  }
+
+  .footer-main {
+    padding: 25px 20px;
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+
+  .footer-brand-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-brand-line {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-contact p {
+    justify-content: center;
+  }
+
+  .footer-benefits-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+}
+
+
+/* =========================================
+   CELULAR PEQUEÑO
+========================================= */
+
+@media (max-width: 576px) {
+
+  .footer-brand-phrase h2 {
+    font-size: 1.1rem;
+  }
+
+  .footer-social-label {
+    font-size: 0.7rem;
+  }
+
+  .footer-main {
+    padding: 22px 15px;
+  }
+
+}

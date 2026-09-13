@@ -1,0 +1,219 @@
+/* =========================================
+   NAVBAR PRINCIPAL
+========================================= */
+
+.sticky-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+
+/* =========================================
+   ELEMENTOS DEL LADO DERECHO
+========================================= */
+
+.sticky-navbar .ml-auto {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 6%;
+  transform: translateY(-50%);
+  margin-right: 5%;
+  height: 5%;
+}
+
+.sticky-navbar .LoginPerson {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 6%;
+  transform: translateY(-50%);
+  margin-right: 10%;
+  height: 5%;
+}
+
+.header-MDBNavbarToggler {
+  margin-right: 200px;
+}
+
+
+/* =========================================
+   ENLACES DEL MENÚ
+========================================= */
+
+.sticky-navbar .navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.sticky-navbar .navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+
+/* Separadores */
+
+.sticky-navbar .navbar-nav .nav-item:not(:last-child)::after {
+  content: '|';
+  margin: 0 14px;
+  color: #b0b0b0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+
+/* Texto de los enlaces */
+
+.sticky-navbar .navbar-nav .nav-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #222222;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  padding: 0;
+  transition: color 0.25s ease;
+}
+
+
+/* Hover */
+
+.sticky-navbar .navbar-nav .nav-link:hover {
+  color: #002aff;
+}
+
+
+/* Enlace activo */
+
+.sticky-navbar .navbar-nav .nav-link.active {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  color: #001eff !important;
+}
+
+
+/* =========================================
+   DROPDOWN DEL USUARIO
+========================================= */
+
+.header-drop-down {
+  margin-right: 1rem;
+}
+
+.user-dropdown-toggle {
+  padding: 0;
+  border-radius: 0;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    border-color 0.2s ease;
+  line-height: 1;
+  border: none;
+}
+
+.user-dropdown-toggle:hover {
+  background-color: rgba(37, 99, 235, 0.06);
+  opacity: 1;
+}
+
+.user-icon {
+  font-size: 1.5rem;
+  color: #495057;
+  transition: color 0.2s ease;
+}
+
+.user-dropdown-toggle:hover .user-icon {
+  color: #0051ff;
+}
+
+
+/* =========================================
+   CARRITO
+========================================= */
+
+.cart-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 0;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+  border: none;
+}
+
+.cart-nav-link:hover {
+  background-color: rgba(98, 117, 158, 0.06);
+}
+
+.cart-icon {
+  font-size: 1.25rem;
+  color: #495057;
+  transition: color 0.2s ease;
+}
+
+.cart-nav-link:hover .cart-icon {
+  color: #2563eb;
+}
+
+
+/* =========================================
+   NAVBAR EN PANTALLAS GRANDES
+========================================= */
+
+@media (min-width: 992px) {
+
+  .sticky-navbar .navbar-collapse {
+    justify-content: center;
+  }
+
+}
+
+
+/* =========================================
+   TABLET / CELULAR
+========================================= */
+
+@media only screen and (max-width: 768px) {
+
+  .sticky-navbar .LoginPerson {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 6%;
+    transform: translateY(-50%);
+    margin-right: 15%;
+    height: 5%;
+  }
+
+  .sticky-navbar .navbar-nav .nav-item:not(:last-child)::after {
+    margin: 0 8px;
+  }
+
+  .sticky-navbar .navbar-nav .nav-link {
+    font-size: 0.9rem;
+  }
+
+}
+
+
+/* =========================================
+   NAVBAR OCULTO AL HACER SCROLL
+========================================= */
+
+.sticky-navbar.header-hidden {
+  transform: translateY(-100%);
+}
+
+.sticky-navbar.header-hidden .ml-auto,
+.sticky-navbar.header-hidden .LoginPerson {
+  transform: translateY(-100%) translateY(-50%);
+}

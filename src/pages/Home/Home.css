@@ -1,0 +1,448 @@
+
+.home-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #ffffff;
+  color: #171717;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  max-width: 550px;
+  color: #faf9f9;
+}
+
+.hero-content h1 {
+  margin: 0 0 25px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+}
+
+.hero-content > p:not(.eyebrow) {
+  margin: 0 0 35px;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #dddddd;
+}
+
+
+/* ================================
+   HERO VIDEO / IMAGEN
+================================ */
+/*==video===patek==*/
+.collection-banner {
+  position: relative;
+  width: 100vw;
+  height: 550px;
+  overflow: hidden;
+  margin-left: calc(50% - 50vw);
+}
+
+.collection-banner video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.collection-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.collection-text {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  color: white;
+  padding: 30px;
+}
+
+.collection-text h2 {
+  max-width: 800px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  margin: 15px 0 0;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+
+
+
+
+
+.hero-video,
+.hero-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* ================================
+   BOTONES
+================================ */
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 28px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #111111;
+}
+
+.btn-primary:hover {
+  background: #dddddd;
+  color: #111111;
+}
+
+.btn-secondary {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: #ffffff;
+  color: #111111;
+}
+
+
+/* ================================
+   SECCIONES
+================================ */
+
+.section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 110px 60px;
+}
+
+.section-heading {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.section-heading .eyebrow {
+  color: #666666;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+
+/* ================================
+   PRODUCTOS
+================================ */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.product-card {
+  overflow: hidden;
+  background: #f6f6f6;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: 360px;
+  display: block;
+  object-fit: cover;
+}
+
+.product-card-content {
+  padding: 25px;
+}
+
+.product-card-content h3 {
+  margin: 0 0 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+}
+
+.product-card-content p {
+  margin: 0 0 15px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.price {
+  font-weight: 600;
+  color: #171717 !important;
+}
+
+
+/* ================================
+   BENEFICIOS
+================================ */
+
+.benefits {
+  max-width: none;
+  background: #f5f5f5;
+}
+
+.benefits .section-heading {
+  max-width: 800px;
+}
+
+.benefits-grid {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.benefit-card {
+  padding: 35px 25px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+}
+
+.benefit-card h3 {
+  margin: 0 0 15px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+}
+
+.benefit-card p {
+  margin: 0;
+  color: #666666;
+  line-height: 1.7;
+}
+
+
+/* ================================
+   DESTACADO
+================================ */
+
+.featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  max-width: 1400px;
+  padding-top: 0;
+}
+
+.featured-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px;
+  background: #111111;
+  color: #ffffff;
+}
+
+.featured-content h2 {
+  margin: 0 0 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  line-height: 1;
+}
+
+.featured-content p:not(.eyebrow) {
+  max-width: 500px;
+  margin-bottom: 30px;
+  color: #dddddd;
+  line-height: 1.8;
+}
+
+.featured-media {
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.featured-media img,
+.featured-media video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+
+/* ================================
+   RESPONSIVE - TABLET
+================================ */
+
+@media (max-width: 992px) {
+
+  .hero-content {
+    padding: 60px 40px;
+    max-width: 100%;
+  }
+
+  .hero-video {
+    object-position: center right;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 80px 40px;
+  }
+}
+
+
+/* ================================
+   RESPONSIVE - CELULAR
+================================ */
+
+@media (max-width: 576px) {
+
+  .hero-content {
+    min-height: 450px;
+    padding: 50px 25px;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .section {
+    padding: 70px 20px;
+  }
+
+  .section-heading {
+    margin-bottom: 40px;
+  }
+
+  .section-heading h2 {
+    font-size: 2.5rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card img {
+    height: 320px;
+  }
+
+  .featured-content {
+    padding: 50px 25px;
+  }
+
+  .featured-media {
+    min-height: 350px;
+  }
+}

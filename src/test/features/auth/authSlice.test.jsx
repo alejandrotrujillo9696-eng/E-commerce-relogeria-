@@ -1,0 +1,84 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import authReducer, {
+  login,
+  logout,
+  loadCurrentUser,
+  clearAuthError,
+} from '../../../features/auth/authSlice';
+
+const mockUser = {
+  id: 1,
+  email: 'test@example.com',
+  firstName: 'Test',
+  lastName: 'User',
+  role: 'customer',
+};
+
+describe('authSlice', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('loadCurrentUser fulfilled actualiza usuario y initialized', () => {
+    const state = authReducer(undefined, {
+      type: loadCurrentUser.fulfilled.type,
+      payload: { user: mockUser },
+    });
+    expect(state.user).toEqual(mockUser);
+    expect(state.initialized).toBe(true);
+    expect(state.status).toBe('idle');
+  });
+
+  it('loadCurrentUser rejected mantiene usuario null y marca initialized', () => {
+    const state = authReducer(undefined, {
+      type: loadCurrentUser.rejected.type,
+    });
+    expect(state.user).toBeNull();
+    expect(state.initialized).toBe(true);
+    expect(state.status).toBe('idle');
+  });
+
+  it('login fulfilled setea usuario y limpia error', () => {
+    const state = authReducer(
+      { user: null, initialized: false, status: 'idle', error: 'error' },
+      {
+        type: login.fulfilled.type,
+        payload: { user: mockUser },
+      }
+    );
+    expect(state.user).toEqual(mockUser);
+    expect(state.initialized).toBe(true);
+    expect(state.error).toBeNull();
+  });
+
+  it('login rejected setea error', () => {
+    const state = authReducer(
+      { user: null, initialized: false, status: 'idle', error: null },
+      {
+        type: login.rejected.type,
+        payload: 'Credenciales inválidas',
+      }
+    );
+    expect(state.error).toBe('Credenciales inválidas');
+    expect(state.status).toBe('idle');
+  });
+
+  it('logout fulfilled limpia usuario', () => {
+    const state = authReducer(
+      { user: mockUser, initialized: true, status: 'idle', error: null },
+      {
+        type: logout.fulfilled.type,
+      }
+    );
+    expect(state.user).toBeNull();
+    expect(state.status).toBe('idle');
+  });
+
+  it('clearAuthError limpia el error', () => {
+    const state = authReducer(
+      { user: null, initialized: true, status: 'idle', error: 'some error' },
+      clearAuthError()
+    );
+    expect(state.error).toBeNull();
+  });
+});

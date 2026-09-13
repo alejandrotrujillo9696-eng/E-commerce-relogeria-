@@ -1,0 +1,515 @@
+/* =========================================
+   PRODUCT DETAIL
+========================================= */
+
+.product-detail-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 5%;
+
+  font-family: 'Poppins', sans-serif;
+  color: #171717;
+}
+
+
+/* =========================================
+   TARJETA DEL PRODUCTO
+========================================= */
+
+.product-detail-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 50px;
+
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 35px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e5e5;
+
+  border-radius: 10px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   IMAGEN
+========================================= */
+
+.product-detail-image {
+  width: 100%;
+  height: 550px;
+
+  display: block;
+
+  object-fit: cover;
+
+  background: #f6f6f6;
+
+  border-radius: 6px;
+
+  transition: transform 0.3s ease;
+}
+
+.product-detail-image:hover {
+  transform: scale(1.01);
+}
+
+
+/* =========================================
+   INFORMACIÓN
+========================================= */
+
+.product-detail-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+
+/* =========================================
+   NOMBRE DEL PRODUCTO
+========================================= */
+
+.product-detail-info .product-name {
+  margin: 0 0 15px;
+
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: clamp(2.5rem, 4vw, 4rem);
+
+  font-weight: 600;
+
+  line-height: 1.05;
+
+  color: #171717;
+}
+
+
+/* =========================================
+   CATEGORÍA
+========================================= */
+
+.product-category {
+  margin: 0 0 20px;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 0.8rem;
+
+  font-weight: 500;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+
+  color: #666666;
+}
+
+
+/* =========================================
+   DESCRIPCIÓN
+========================================= */
+
+.product-detail-info .product-description {
+  max-width: 550px;
+
+  margin: 0 0 20px;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 0.95rem;
+
+  font-weight: 400;
+
+  line-height: 1.7;
+
+  color: #666666;
+}
+
+
+/* =========================================
+   PRECIO
+========================================= */
+
+.product-detail-info .product-price {
+  margin: 5px 0 15px;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 1.5rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.3px;
+
+  color: #020815;
+}
+
+
+/* =========================================
+   STOCK
+========================================= */
+
+.product-detail-info .product-stock-status {
+  margin-bottom: 15px;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 0.85rem;
+
+  font-weight: 500;
+
+  letter-spacing: 0.2px;
+
+  color: #4b5563;
+}
+
+
+/* =========================================
+   CONTROLES DE CANTIDAD
+========================================= */
+
+.quantity-controls-Product {
+  display: flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  margin: 5px 0 10px;
+
+  border: 1px solid #d4d4d4;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   BOTONES + Y -
+========================================= */
+
+.quantity-controls-Product button {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+
+  background: #ffffff;
+
+  color: #171717;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 1rem;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.quantity-controls-Product button:hover:not(:disabled) {
+  background: #111111;
+
+  color: #ffffff;
+}
+
+.quantity-controls-Product button:disabled {
+  color: #aaaaaa;
+
+  background: #f5f5f5;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   NÚMERO DE CANTIDAD
+========================================= */
+
+.quantity-controls-Product span {
+  min-width: 50px;
+
+  text-align: center;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 0.9rem;
+
+  font-weight: 500;
+
+  color: #171717;
+}
+
+
+/* =========================================
+   BOTÓN AÑADIR AL CARRITO
+========================================= */
+
+.product-detail-info .btn {
+  width: fit-content;
+
+  min-width: 220px;
+
+  min-height: 45px;
+
+  margin-top: 10px;
+
+  padding: 10px 20px;
+
+  border: none;
+
+  border-radius: 5px;
+
+  background: #0800ff;
+
+  color: #ffffff;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 0.95rem;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.product-detail-info .btn:hover:not(:disabled) {
+  background: #0000d9;
+
+  transform: translateY(-1px);
+}
+
+.product-detail-info .btn:disabled {
+  background: #9ca3af;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.product-detail-info .text-danger {
+  margin-top: 8px;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 14px;
+
+  color: #dc3545 !important;
+}
+
+
+/* =========================================
+   BOTÓN IR AL CARRITO
+========================================= */
+
+.product-detail-info .btn.btn-success {
+  min-width: 180px;
+
+  background: #198754;
+
+  color: #ffffff;
+}
+
+.product-detail-info .btn.btn-success:hover {
+  background: #157347;
+}
+
+
+/* =========================================
+   VOLVER A PRODUCTOS
+========================================= */
+
+.product-detail-container > .text-center {
+  margin-top: 35px;
+}
+
+.product-detail-container .cta-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 45px;
+
+  padding: 10px 20px;
+
+  border: 1px solid #111111;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #111111;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 0.9rem;
+
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.product-detail-container .cta-button:hover {
+  background: #111111;
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 992px) {
+
+  .product-detail-container {
+    padding: 50px 30px;
+  }
+
+  .product-detail-card {
+    gap: 35px;
+
+    padding: 30px;
+  }
+
+  .product-detail-image {
+    height: 480px;
+  }
+
+  .product-detail-info .product-name {
+    font-size: 3rem;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE - MÓVIL
+========================================= */
+
+@media (max-width: 768px) {
+
+  .product-detail-container {
+    padding: 40px 20px;
+  }
+
+  .product-detail-card {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    padding: 25px;
+  }
+
+  .product-detail-image {
+    height: 420px;
+  }
+
+  .product-detail-info {
+    padding: 10px 0;
+  }
+
+  .product-detail-info .product-name {
+    font-size: 2.8rem;
+  }
+
+  .product-detail-info .product-description {
+    font-size: 0.9rem;
+  }
+
+  .product-detail-info .product-price {
+    font-size: 1.4rem;
+  }
+
+  .product-detail-info .btn {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   CELULAR PEQUEÑO
+========================================= */
+
+@media (max-width: 576px) {
+
+  .product-detail-container {
+    padding: 35px 15px;
+  }
+
+  .product-detail-card {
+    padding: 18px;
+
+    gap: 25px;
+  }
+
+  .product-detail-image {
+    height: 350px;
+  }
+
+  .product-detail-info .product-name {
+    font-size: 2.4rem;
+  }
+
+  .product-category {
+    font-size: 0.7rem;
+
+    letter-spacing: 1.2px;
+  }
+
+  .product-detail-info .product-description {
+    font-size: 0.88rem;
+
+    line-height: 1.7;
+  }
+
+  .product-detail-info .product-price {
+    font-size: 1.3rem;
+  }
+
+  .quantity-controls-Product button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .quantity-controls-Product span {
+    min-width: 45px;
+  }
+
+  .product-detail-container .cta-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,291 @@
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.product-list-container {
+  width: 100%;
+  padding: 60px 5%;
+}
+
+
+/* =========================================
+   FILTROS
+========================================= */
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 20px;
+
+  flex-wrap: wrap;
+
+  background: #f8f8f8;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+}
+
+
+/* =========================================
+   CAMPOS DE LOS FILTROS
+========================================= */
+
+.filters input,
+.filters select {
+  height: 46px;
+  padding: 0 15px;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+
+  background: #ffffff;
+  color: #171717;
+
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+
+  outline: none;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+}
+
+
+/* =========================================
+   BUSCAR POR NOMBRE
+========================================= */
+
+.filters input[type='text'] {
+  width: 280px;
+}
+
+
+/* =========================================
+   PRECIO MÍNIMO Y MÁXIMO
+========================================= */
+
+.filters input[type='number'] {
+  width: 180px;
+}
+
+
+/* =========================================
+   SELECTOR DE CATEGORÍAS
+========================================= */
+
+.filters select {
+  width: 220px;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.filters input::placeholder {
+  color: #888888;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+/* =========================================
+   HOVER DE LOS FILTROS
+========================================= */
+
+.filters input:hover,
+.filters select:hover {
+  border-color: #999999;
+}
+
+
+/* =========================================
+   FOCUS DE LOS FILTROS
+========================================= */
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #0800ff;
+
+  box-shadow:
+    0 0 0 3px rgba(8, 0, 255, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   LISTA DE PRODUCTOS
+========================================= */
+
+.product-list {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+
+  gap: 35px;
+
+  width: 100%;
+}
+
+
+/* =========================================
+   MENSAJES
+========================================= */
+
+.product-list-container .text-center {
+  margin-top: 40px;
+}
+
+
+/* =========================================
+   ESTADO DE STOCK
+========================================= */
+
+.product-stock-status {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  letter-spacing: 0.2px;
+
+  margin-bottom: 10px;
+
+  color: #4b5563;
+}
+
+
+/* =========================================
+   PAGINACIÓN
+========================================= */
+
+.product-list-container .pagination {
+  margin-top: 50px;
+}
+
+
+/* =========================================
+   BOTONES DE PAGINACIÓN
+========================================= */
+
+.product-list-container .page-link {
+  border: 1px solid #111111;
+  border-radius: 0;
+
+  background: #ffffff;
+  color: #111111;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+/* =========================================
+   HOVER PAGINACIÓN
+========================================= */
+
+.product-list-container .page-link:hover {
+  transform: translateY(-2px);
+
+  background: #111111;
+  color: #ffffff;
+
+  border-color: #111111;
+}
+
+
+/* =========================================
+   PÁGINA ACTIVA
+========================================= */
+
+.product-list-container .page-item.active .page-link {
+  background: #111111;
+  color: #ffffff;
+
+  border-color: #111111;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+  .product-list-container {
+    padding: 40px 20px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 18px;
+  }
+
+  .filters input,
+  .filters input[type='text'],
+  .filters input[type='number'],
+  .filters select {
+    width: 100%;
+  }
+
+  .product-list {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+
+    gap: 25px;
+  }
+
+  .product-list-container .pagination {
+    margin-top: 35px;
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE - CELULAR
+========================================= */
+
+@media (max-width: 576px) {
+
+  .product-list-container {
+    padding: 35px 15px;
+  }
+
+  .filters {
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .product-list {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+  }
+
+  .product-list-container .page-link {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+}
