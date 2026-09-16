@@ -11,6 +11,13 @@ export const authenticate = (req, _res, next) => {
     : null;
   const token = req.cookies[COOKIE_NAME] || bearerToken;
 
+  if (req.method === 'GET' && req.originalUrl === '/api/cart') {
+    console.log('[AUTH DEBUG] GET /api/cart');
+    console.log('req.cookies exists:', !!req.cookies);
+    console.log('auth_token cookie:', req.cookies?.[COOKIE_NAME] ? 'PRESENTE' : 'AUSENTE');
+    console.log('authorization header:', authorization ? 'PRESENTE' : 'AUSENTE');
+  }
+
   if (!token) {
     return next(new ApiError(401, 'Debes iniciar sesión para realizar esta acción.'));
   }
