@@ -50,34 +50,22 @@ function App() {
       return;
     }
 
-    const justLoggedIn = sessionStorage.getItem('justLoggedIn') === '1';
+    if (!mergeDoneRef.current) {
+      const guestItems = (JSON.parse(localStorage.getItem('cartItems')) || []).map(
+        (item) => ({
+          ...item,
+          productId: item.id,
+        })
+      );
 
-    const executeCartLogic = () => {
-      if (!mergeDoneRef.current) {
-        const guestItems = (JSON.parse(localStorage.getItem('cartItems')) || []).map(
-          (item) => ({
-            ...item,
-            productId: item.id,
-          })
-        );
-
-        if (guestItems.length > 0) {
-          mergeDoneRef.current = true;
-          dispatch(mergeGuestCart(guestItems));
-          return;
-        }
+      if (guestItems.length > 0) {
+        mergeDoneRef.current = true;
+        dispatch(mergeGuestCart(guestItems));
+        return;
       }
-
-      dispatch(loadCart());
-    };
-
-    if (justLoggedIn) {
-      sessionStorage.removeItem('justLoggedIn');
-      const timer = setTimeout(executeCartLogic, 1000);
-      return () => clearTimeout(timer);
     }
 
-    executeCartLogic();
+    dispatch(loadCart());
   }, [dispatch, initialized, user]);
 
   return (

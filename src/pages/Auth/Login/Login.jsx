@@ -28,7 +28,6 @@ function Login() {
 
     try {
       await dispatch(login({ email, password })).unwrap();
-      sessionStorage.setItem('justLoggedIn', '1');
       toast.success(`¡Bienvenido de nuevo, ${email}!`);
       setTimeout(() => {
         navigate('/');

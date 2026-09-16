@@ -5,6 +5,7 @@ import {
   logoutRequest,
   registerRequest,
 } from '../../services/authService';
+import { clearApiAuthToken, setApiAuthToken } from '../../services/apiClient';
 
 const createRequestThunk = (type, request) =>
   createAsyncThunk(type, async (payload, { rejectWithValue }) => {
@@ -25,6 +26,7 @@ export const loadCurrentUser = createRequestThunk(
 
 const initialState = {
   user: null,
+  token: null,
   initialized: false,
   status: 'idle',
   error: null,
@@ -55,6 +57,8 @@ const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+        state.token = null;
+        clearApiAuthToken();
         state.status = 'idle';
       })
       .addMatcher(
@@ -63,6 +67,8 @@ const authSlice = createSlice({
           action.type === login.fulfilled.type,
         (state, action) => {
           state.user = action.payload.user;
+          state.token = action.payload.token;
+          setApiAuthToken(action.payload.token);
           state.initialized = true;
           state.status = 'idle';
           state.error = null;

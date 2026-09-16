@@ -32,11 +32,22 @@ const getCsrfToken = async () => {
   return csrfToken;
 };
 
+let authToken = null;
+
+export const setApiAuthToken = (token) => {
+  authToken = token;
+};
+
+export const clearApiAuthToken = () => {
+  authToken = null;
+};
+
 const apiClient = async (path, options = {}) => {
   const method = options.method?.toUpperCase();
 
   const headers = {
     'Content-Type': 'application/json',
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
     ...options.headers,
   };
 
