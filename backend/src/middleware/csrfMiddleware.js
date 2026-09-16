@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+
 import { ApiError } from './errorHandler.js';
 
 const COOKIE_NAME = '_csrf';
@@ -31,8 +32,20 @@ export const ensureCsrfCookie = (req, res, next) => {
   return next();
 };
 
+export const getCsrfToken = (req, res) => {
+  let token = req.cookies[COOKIE_NAME];
+
+  if (!token) {
+    token = generateCsrfToken();
+    setCsrfCookie(res, token);
+  }
+
+  return token;
+};
+
 export const validateCsrfToken = (req, res, next) => {
   const method = req.method;
+
   const isMutating = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method);
 
   if (!isMutating) {
@@ -52,7 +65,12 @@ export const validateCsrfToken = (req, res, next) => {
     .filter(Boolean);
 
   const origin = req.get('Origin');
-  if (origin && allowedOrigins.length > 0 && !allowedOrigins.includes(origin)) {
+
+  if (
+    origin &&
+    allowedOrigins.length > 0 &&
+    !allowedOrigins.includes(origin)
+  ) {
     return next(new ApiError(403, 'Origen no permitido.'));
   }
 
