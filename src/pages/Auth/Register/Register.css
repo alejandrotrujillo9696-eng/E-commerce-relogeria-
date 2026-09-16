@@ -21,8 +21,9 @@
   margin-bottom: 5%;
 }
 .registation-form-input {
-  width: 500px;
-  height: 400px;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
 }
 .registation-form-input-feild {
   padding-bottom: 10%;
@@ -74,8 +75,10 @@
     height: 100%;
   }
   .registation-form-input {
+    max-width: 500px;
     width: 100%;
-    height: 90%;
+    height: auto;
+    margin: 0 auto;
   }
   .registation-form-input-feild {
     padding: 0%;

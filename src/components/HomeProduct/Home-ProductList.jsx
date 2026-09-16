@@ -6,7 +6,7 @@ import { useProductCatalog } from '../../hooks/useProductFilters';
 import { getHomeSectionRequest } from '../../services/homeSectionPublicService';
 
 function HomeProductList() {
-  const { products: catalogProducts, loading: catalogLoading, error: catalogError } = useProductCatalog({ limit: 32 });
+  const { products: catalogProducts, loading: catalogLoading, error: catalogError } = useProductCatalog({ limit: 12 });
   const [section, setSection] = useState(null);
   const [loading, setLoading] = useState(true);
 

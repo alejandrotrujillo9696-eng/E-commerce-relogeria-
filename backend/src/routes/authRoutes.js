@@ -21,8 +21,8 @@ const authLimiter = isTest
 const loginLimiter = isTest
   ? (_req, _res, next) => next()
   : rateLimit({
-      windowMs: 3 * 60 * 60 * 1000,
-      max: 5,
+      windowMs: 15 * 60 * 1000,
+      max: 10,
       standardHeaders: true,
       legacyHeaders: false,
       handler: (_req, res) => {

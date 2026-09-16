@@ -1,6 +1,9 @@
 const API_URL =
   import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
+const isTest = import.meta.env.MODE === 'test';
+const REQUEST_TIMEOUT = isTest ? 0 : 30000;
+
 let csrfToken = '';
 
 const isMutatingMethod = (method) =>
@@ -41,11 +44,38 @@ const apiClient = async (path, options = {}) => {
     headers['X-CSRF-Token'] = await getCsrfToken();
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
-    credentials: 'include',
-    headers,
-    ...options,
-  });
+  let response;
+
+  if (REQUEST_TIMEOUT > 0) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+
+    try {
+      response = await fetch(`${API_URL}${path}`, {
+        credentials: 'include',
+        headers,
+        ...options,
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      if (error.name === 'AbortError') {
+        throw new Error(
+          'La solicitud tardó demasiado tiempo. Por favor, inténtalo de nuevo.'
+        );
+      }
+
+      throw error;
+    }
+  } else {
+    response = await fetch(`${API_URL}${path}`, {
+      credentials: 'include',
+      headers,
+      ...options,
+    });
+  }
 
   const body = await response.json().catch(() => ({}));
 

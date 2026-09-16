@@ -123,6 +123,7 @@ function ProductCard({ product }) {
             src={product.image}
             alt={product.name}
             className="product-image"
+            loading="lazy"
           />
         </Link>
 

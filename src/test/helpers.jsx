@@ -50,6 +50,15 @@ export const renderWithProviders = (
 export const mockFetch = (handlers = []) => {
   global.fetch = vi.fn(async (input) => {
     const url = typeof input === 'string' ? input : input.url;
+
+    if (url === 'http://localhost:3001/api/csrf-token') {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ data: { token: 'test-csrf-token' } }),
+      };
+    }
+
     const handler = handlers.find((h) => {
       if (h.url instanceof RegExp) return h.url.test(url);
       if (typeof h.url === 'function') return h.url(url);

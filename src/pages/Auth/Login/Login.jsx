@@ -51,7 +51,7 @@ function Login() {
       <ToastContainer />
       <MDBContainer fluid className="p-3 my-3">
         <MDBRow>
-          <MDBCol col="10" md="6">
+          <MDBCol col="12" md="6">
             <img
               src="https://c4.wallpaperflare.com/wallpaper/950/726/427/clock-detail-jewelry-luxury-wallpaper-preview.jpg"
               className="img-fluid"
@@ -59,8 +59,8 @@ function Login() {
             />
           </MDBCol>
 
-          <MDBCol col="4" md="6">
-            <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
+          <MDBCol col="12" md="6">
+            <div className="d-flex flex-column justify-content-center h-custom-2 w-100 pt-4">
               <h3
                 className="fw-bold mb-3 ps-5 pb-3"
                 style={{ letterSpacing: '1px' }}

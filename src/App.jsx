@@ -37,28 +37,36 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const initialized = useSelector((state) => state.auth.initialized);
-  const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
     dispatch(loadCurrentUser());
   }, [dispatch]);
 
-  const mergeDone = useRef(false);
+  const mergeDoneRef = useRef(false);
 
   useEffect(() => {
     if (!initialized || !user) {
-      mergeDone.current = false;
+      mergeDoneRef.current = false;
       return;
     }
 
-    if (cartItems.length > 0 && !mergeDone.current) {
-      mergeDone.current = true;
-      dispatch(mergeGuestCart(cartItems));
-      return;
+    if (!mergeDoneRef.current) {
+      const guestItems = (JSON.parse(localStorage.getItem('cartItems')) || []).map(
+        (item) => ({
+          ...item,
+          productId: item.id,
+        })
+      );
+
+      if (guestItems.length > 0) {
+        mergeDoneRef.current = true;
+        dispatch(mergeGuestCart(guestItems));
+        return;
+      }
     }
 
     dispatch(loadCart());
-  }, [dispatch, initialized, user, cartItems]);
+  }, [dispatch, initialized, user]);
 
   return (
     <Router basename={import.meta.env.BASE_URL}>
