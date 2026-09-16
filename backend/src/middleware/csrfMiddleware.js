@@ -52,8 +52,25 @@ export const validateCsrfToken = (req, res, next) => {
     return next();
   }
 
+  if (req.authViaBearer) {
+    if (method === 'POST' && req.originalUrl === '/api/cart/items') {
+      console.log('[CSRF DEBUG] POST /api/cart/items');
+      console.log('authViaBearer: SI');
+      console.log('_csrf cookie:', req.cookies?.[COOKIE_NAME] ? 'PRESENTE' : 'AUSENTE');
+      console.log('X-CSRF-Token header:', req.get('X-CSRF-Token') ? 'PRESENTE' : 'AUSENTE');
+    }
+    return next();
+  }
+
   const cookieToken = req.cookies[COOKIE_NAME];
   const headerToken = req.get('X-CSRF-Token');
+
+  if (method === 'POST' && req.originalUrl === '/api/cart/items') {
+    console.log('[CSRF DEBUG] POST /api/cart/items');
+    console.log('authViaBearer: NO');
+    console.log('_csrf cookie:', cookieToken ? 'PRESENTE' : 'AUSENTE');
+    console.log('X-CSRF-Token header:', headerToken ? 'PRESENTE' : 'AUSENTE');
+  }
 
   if (!cookieToken || !headerToken || cookieToken !== headerToken) {
     return next(new ApiError(403, 'Token CSRF inválido o faltante.'));

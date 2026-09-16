@@ -29,6 +29,7 @@ export const authenticate = (req, _res, next) => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.auth = { userId: payload.sub, role: payload.role || 'customer' };
+    req.authViaBearer = !!bearerToken;
     return next();
   } catch {
     return next(new ApiError(401, 'Tu sesión no es válida o ha expirado.'));

@@ -11,6 +11,7 @@ import {
   validateCsrfToken,
 } from './middleware/csrfMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
+import { authenticate } from './middleware/authMiddleware.js';
 import cartRoutes from './routes/cartRoutes.js';
 import homeSectionPublicRoutes from './routes/homeSectionPublicRoutes.js';
 import homeSectionRoutes from './routes/homeSectionRoutes.js';
@@ -76,7 +77,7 @@ app.use('/api/products', ensureCsrfCookie, productRoutes);
 
 app.use('/api/home-section', homeSectionPublicRoutes);
 
-app.use('/api/cart', validateCsrfToken, cartRoutes);
+app.use('/api/cart', authenticate, validateCsrfToken, cartRoutes);
 
 app.use('/api/orders', validateCsrfToken, orderRoutes);
 
