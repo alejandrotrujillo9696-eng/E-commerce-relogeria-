@@ -20,3 +20,5 @@ Thumbs.db
 
 # Misc
 *.local
+certs/
+database_backup.sql
