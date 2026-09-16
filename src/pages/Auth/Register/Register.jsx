@@ -42,6 +42,7 @@ function Register() {
     onSubmit: async (values, { resetForm }) => {
       try {
         await dispatch(register(values)).unwrap();
+        sessionStorage.setItem('justLoggedIn', '1');
         toast.success('¡Registro exitoso!');
         setTimeout(() => {
           resetForm();
