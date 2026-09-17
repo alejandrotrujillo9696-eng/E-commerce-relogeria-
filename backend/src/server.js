@@ -79,7 +79,7 @@ app.use('/api/home-section', homeSectionPublicRoutes);
 
 app.use('/api/cart', authenticate, validateCsrfToken, cartRoutes);
 
-app.use('/api/orders', validateCsrfToken, orderRoutes);
+app.use('/api/orders', authenticate, validateCsrfToken, orderRoutes);
 
 app.use('/api/admin/home-section', validateCsrfToken, homeSectionRoutes);
 
