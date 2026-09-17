@@ -7,6 +7,7 @@ const cookieOptions = {
   httpOnly: true,
   sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   secure: process.env.NODE_ENV === 'production',
+  path: '/',
   maxAge: Number(process.env.JWT_MAX_AGE || 24 * 60 * 60 * 1000),
 };
 
