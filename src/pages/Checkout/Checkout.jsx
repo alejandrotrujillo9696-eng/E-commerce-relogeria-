@@ -45,9 +45,7 @@ function CheckoutPage() {
       dispatch(clearCart());
       navigate('/thank-you', { state: { orderId: data.order.id } });
     } catch (err) {
-      setError(
-        typeof err === 'string' ? err : 'No fue posible crear la orden.'
-      );
+      setError(typeof err === 'string' ? err : err?.message || 'No fue posible crear la orden.');
     } finally {
       setLoading(false);
     }

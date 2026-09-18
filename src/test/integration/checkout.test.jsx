@@ -208,7 +208,7 @@ describe('Checkout integration', () => {
     await user.click(screen.getByRole('button', { name: /confirmar compra/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/No fue posible crear la orden/i)).toBeDefined();
+      expect(screen.getByText('Server error')).toBeDefined();
     });
   });
 });

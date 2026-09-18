@@ -32,6 +32,11 @@ export const createUserOrder = async (userId, input) => {
   }
 
   const total = cartItems.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
+  const user = await findUserById(pool, userId);
+
+  if (!user) {
+    throw new ApiError(401, 'La cuenta asociada a esta sesión no existe.');
+  }
 
   const connection = await pool.getConnection();
   try {
@@ -53,6 +58,10 @@ export const createUserOrder = async (userId, input) => {
       }
 
       const quantity = Number(item.quantity);
+      if (!Number.isInteger(quantity) || quantity < 1 || quantity > 999) {
+        throw new ApiError(400, 'La cantidad de un producto no es válida.');
+      }
+
       if (product.stock < quantity) {
         throw new ApiError(409, 'Stock insuficiente para uno o más productos.');
       }
@@ -72,10 +81,8 @@ export const createUserOrder = async (userId, input) => {
     await deleteCartItems(connection, cart.id);
 
     const items = await findOrderItems(connection, order.id);
+    const fullOrder = await findOrderById(connection, order.id, userId);
     await connection.commit();
-
-    const user = await findUserById(pool, userId);
-    const fullOrder = await findOrderById(pool, order.id, userId);
 
     const normalizedUser = {
       firstName: user.first_name,
