@@ -56,3 +56,36 @@ export const sendOrderConfirmationEmail = async (order, user, items) => {
     );
   }
 };
+
+export const sendPasswordResetEmail = async (user, resetUrl) => {
+  const apiKey = process.env.BREVO_API_KEY;
+  const senderEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+
+  if (!apiKey || !senderEmail) {
+    throw new Error('La configuración de correo de recuperación está incompleta.');
+  }
+
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'api-key': apiKey,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      sender: { email: senderEmail },
+      to: [{ email: user.email }],
+      subject: 'Recuperación de contraseña',
+      htmlContent: `
+        <p>Hola ${user.first_name},</p>
+        <p>Recibimos una solicitud para cambiar tu contraseña.</p>
+        <p><a href="${resetUrl}">Cambiar contraseña</a></p>
+        <p>Este enlace vence en 30 minutos y solo puede utilizarse una vez.</p>
+        <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
+      `,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`El proveedor de correo rechazó el envío: ${response.status}`);
+  }
+};

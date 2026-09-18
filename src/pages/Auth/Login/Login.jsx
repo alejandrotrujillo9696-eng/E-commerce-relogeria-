@@ -104,7 +104,7 @@ function Login() {
                     id="flexCheckDefault"
                     label="Recuérdame"
                   />
-                  <a href="#!">¿Olvidaste tu contraseña?</a>
+                  <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
                 </div>
 
                 <MDBBtn

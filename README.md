@@ -409,6 +409,7 @@ mysql -u [USUARIO] -p [NOMBRE_BASE_DATOS] < backend/database/seed-home-section.s
 | `SMTP_USER` | Usuario autenticado del servidor SMTP. |
 | `SMTP_PASS` | Contraseña del servidor SMTP. |
 | `SMTP_FROM` | Remitente de correo. Por defecto: `SMTP_USER`. |
+| `BREVO_API_KEY` | Clave privada de Brevo para enviar correos de recuperación y confirmación. Solo en el backend. |
 
 > ⚠️ **Importante:** No incluyas valores reales en el archivo `.env`. Usa `.env.example` como plantilla y mantén `.env` fuera del control de versiones.
 

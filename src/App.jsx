@@ -8,6 +8,8 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword/ResetPassword';
 import ProductList from './pages/Product/ProductList';
 import ProductDetail from './pages/Product/ProductDetail';
 import CheckoutPage from './pages/Checkout/Checkout';
@@ -86,6 +88,8 @@ function App() {
           path="/register"
           element={initialized && user ? <Navigate to="/" /> : <Register />}
         />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/cart" element={<CartPage />} />
