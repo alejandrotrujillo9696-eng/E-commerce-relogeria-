@@ -1,8 +1,8 @@
-import apiClient from './apiClient';
+import apiClient, { diagnosticLog } from './apiClient';
 
 export const createOrderRequest = (shippingData) => {
-  console.log('[ORDER DEBUG] createOrderRequest llamado');
-  console.log('[ORDER DEBUG] shippingData keys:', Object.keys(shippingData || {}));
+  diagnosticLog.push({ step: 'createOrderRequest', status: 'llamado', error: null });
+  diagnosticLog.push({ step: 'shippingData keys', status: Object.keys(shippingData || {}).join(', '), error: null });
   return apiClient('/orders', {
     method: 'POST',
     body: JSON.stringify(shippingData),

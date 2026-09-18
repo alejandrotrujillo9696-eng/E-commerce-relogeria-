@@ -9,6 +9,7 @@ import {
   MDBInput,
 } from 'mdb-react-ui-kit';
 import { createOrderRequest } from '../../services/orderService';
+import { diagnosticLog, resetDiagnosticLog } from '../../services/apiClient';
 import { clearCart } from '../../features/cart/cartSlice';
 import formatPrice from '../../utils/formatPrice';
 import './Checkout.css';
@@ -27,6 +28,7 @@ function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [diagnosticVisible] = useState(true);
 
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
@@ -41,19 +43,17 @@ function CheckoutPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
+    resetDiagnosticLog();
+    diagnosticLog.push({ step: 'handleSubmit', status: 'iniciado', error: null });
+    diagnosticLog.push({ step: 'cartItems.length', status: String(cartItems.length), error: null });
+    diagnosticLog.push({ step: 'createOrderRequest', status: 'llamado', error: null });
     try {
-      console.log('[CHECKOUT DEBUG] handleSubmit iniciado');
-      console.log('[CHECKOUT DEBUG] cartItems.length:', cartItems.length);
-      console.log('[CHECKOUT DEBUG] form keys:', Object.keys(form));
-      console.log('[CHECKOUT DEBUG] createOrderRequest llamado');
       const data = await createOrderRequest(form);
-      console.log('[CHECKOUT DEBUG] createOrderRequest completado');
+      diagnosticLog.push({ step: 'createOrderRequest', status: 'completado', error: null });
       dispatch(clearCart());
       navigate('/thank-you', { state: { orderId: data.order.id } });
     } catch (err) {
-      console.log('[CHECKOUT DEBUG] error en handleSubmit');
-      console.log('[CHECKOUT DEBUG] error tipo:', typeof err);
-      console.log('[CHECKOUT DEBUG] error mensaje:', err?.message || err);
+      diagnosticLog.push({ step: 'createOrderRequest', status: 'error', error: { name: err?.name, message: err?.message || err } });
       setError(
         typeof err === 'string' ? err : 'No fue posible crear la orden.'
       );
@@ -121,6 +121,27 @@ function CheckoutPage() {
             <MDBBtn type="submit" disabled={loading || cartItems.length === 0}>
               {loading ? 'Procesando...' : 'Confirmar compra'}
             </MDBBtn>
+            {diagnosticVisible && (
+              <div style={{
+                marginTop: '1rem',
+                padding: '0.75rem',
+                border: '1px solid #ccc',
+                borderRadius: '0.5rem',
+                background: '#f7f7f7',
+                fontSize: '0.8rem',
+                lineHeight: '1.4',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+              }}>
+                <strong>DIAGNÓSTICO TEMPORAL</strong>
+                {diagnosticLog.map((item, index) => {
+                  const statusText = item.error
+                    ? `ERROR: ${item.error.name} - ${item.error.message}`
+                    : item.status;
+                  return `${index + 1}. ${item.step}: ${statusText}\n`;
+                }).join('')}
+              </div>
+            )}
           </form>
         </MDBCol>
         <MDBCol md="5">
