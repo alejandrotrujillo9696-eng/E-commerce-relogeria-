@@ -247,9 +247,14 @@ function Footer() {
                 <p>
                   <MDBIcon icon="phone" />
 
-                  <a href="http://wa.me/573144187496">
-                    +57 3144187496
+                  <a href="https://wa.me/573118148510">
+                    WhatsApp: +57 311 814 8510
                   </a>
+                </p>
+
+                <p>
+                  <MDBIcon icon="phone" />
+                  <span>+57 313 2811796</span>
                 </p>
 
               </div>

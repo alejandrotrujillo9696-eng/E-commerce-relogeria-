@@ -51,7 +51,7 @@ function Home() {
       </Link>
 
       <Link
-        to="/contact"
+        to="https://wa.me/573118148510"
         className="btn btn-secondary"
       >
         Contáctanos
