@@ -5,33 +5,57 @@ const isTest = import.meta.env.MODE === 'test';
 const REQUEST_TIMEOUT = isTest ? 0 : 30000;
 
 let csrfToken = '';
+let authToken = null;
 
 const isMutatingMethod = (method) =>
   ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method);
 
-export const diagnosticLog = [];
-export const resetDiagnosticLog = () => {
-  diagnosticLog.length = 0;
+export const getApiAuthToken = () => authToken;
+
+export const setApiAuthToken = (token) => {
+  authToken = token;
+  if (token) {
+    try {
+      sessionStorage.setItem('authToken', token);
+    } catch {
+      // ignore storage errors
+    }
+  } else {
+    try {
+      sessionStorage.removeItem('authToken');
+    } catch {
+      // ignore storage errors
+    }
+  }
 };
 
-const addDiagnosticStep = (step, status = 'pending', error = null) => {
-  diagnosticLog.push({
-    step,
-    status,
-    error: error ? { name: error.name, message: error.message } : null,
-    timestamp: Date.now(),
-  });
+export const clearApiAuthToken = () => {
+  authToken = null;
+  try {
+    sessionStorage.removeItem('authToken');
+  } catch {
+    // ignore storage errors
+  }
 };
+
+const restoreAuthToken = () => {
+  try {
+    const stored = sessionStorage.getItem('authToken');
+    if (stored) {
+      authToken = stored;
+    }
+  } catch {
+    // ignore storage errors
+  }
+};
+
+restoreAuthToken();
 
 const getCsrfToken = async () => {
   if (csrfToken) {
-    console.log('[API DEBUG] getCsrfToken reutilizado desde cache');
-    addDiagnosticStep('getCsrfToken', 'completado', null);
     return csrfToken;
   }
 
-  console.log('[API DEBUG] getCsrfToken GET /api/csrf-token iniciado');
-  addDiagnosticStep('getCsrfToken', 'iniciado', null);
   const response = await fetch(`${API_URL}/csrf-token`, {
     method: 'GET',
     credentials: 'include',
@@ -40,56 +64,27 @@ const getCsrfToken = async () => {
   const body = await response.json().catch(() => ({}));
 
   if (!response.ok || !body.data?.token) {
-    console.log('[API DEBUG] getCsrfToken GET fallido, status:', response.status);
-    addDiagnosticStep('getCsrfToken', 'error', { message: `status ${response.status}` });
     throw new Error(
       body.message || 'No fue posible obtener el token CSRF.'
     );
   }
 
   csrfToken = body.data.token;
-  console.log('[API DEBUG] getCsrfToken GET completado');
-  addDiagnosticStep('getCsrfToken', 'completado', null);
 
   return csrfToken;
-};
-
-let authToken = null;
-
-export const setApiAuthToken = (token) => {
-  authToken = token;
-};
-
-export const clearApiAuthToken = () => {
-  authToken = null;
 };
 
 const apiClient = async (path, options = {}) => {
   const method = options.method?.toUpperCase();
 
-  console.log('[API DEBUG] apiClient', path, 'iniciado');
-  console.log('[API DEBUG] method:', method);
-  console.log('[API DEBUG] authToken presente:', !!authToken);
-
   const headers = {
     'Content-Type': 'application/json',
-    ...(authToken ? { Authorization: `Bearer ${authToken ? '...' : ''}` } : {}),
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
     ...options.headers,
   };
 
   if (isMutatingMethod(method)) {
-    console.log('[API DEBUG] getCsrfToken iniciado');
-    const csrfStart = Date.now();
-    try {
-      const csrf = await getCsrfToken();
-      headers['X-CSRF-Token'] = csrf;
-      console.log('[API DEBUG] getCsrfToken completado en', Date.now() - csrfStart, 'ms');
-      console.log('[API DEBUG] X-CSRF-Token presente:', !!csrf);
-    } catch (csrfError) {
-      console.log('[API DEBUG] getCsrfToken error:', csrfError?.name, '-', csrfError?.message);
-      addDiagnosticStep('fetch POST /api/orders', 'error', csrfError);
-      throw csrfError;
-    }
+    headers['X-CSRF-Token'] = await getCsrfToken();
   }
 
   let response;
@@ -99,8 +94,6 @@ const apiClient = async (path, options = {}) => {
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
     try {
-      console.log('[API DEBUG] fetch', method, path, 'iniciado');
-      addDiagnosticStep(`fetch ${method} ${path}`, 'iniciado', null);
       response = await fetch(`${API_URL}${path}`, {
         credentials: 'include',
         headers,
@@ -108,12 +101,9 @@ const apiClient = async (path, options = {}) => {
         signal: controller.signal,
       });
       clearTimeout(timeoutId);
-      console.log('[API DEBUG] fetch', method, path, 'respuesta:', response.status);
-      addDiagnosticStep(`fetch ${method} ${path}`, `respuesta ${response.status}`, null);
     } catch (error) {
       clearTimeout(timeoutId);
-      console.log('[API DEBUG] fetch', method, path, 'error:', error?.name, '-', error?.message);
-      addDiagnosticStep(`fetch ${method} ${path}`, 'error', error);
+
       if (error.name === 'AbortError') {
         throw new Error(
           'La solicitud tardó demasiado tiempo. Por favor, inténtalo de nuevo.'
@@ -123,15 +113,11 @@ const apiClient = async (path, options = {}) => {
       throw error;
     }
   } else {
-    console.log('[API DEBUG] fetch', method, path, 'iniciado');
-    addDiagnosticStep(`fetch ${method} ${path}`, 'iniciado', null);
     response = await fetch(`${API_URL}${path}`, {
       credentials: 'include',
       headers,
       ...options,
     });
-    console.log('[API DEBUG] fetch', method, path, 'respuesta:', response.status);
-    addDiagnosticStep(`fetch ${method} ${path}`, `respuesta ${response.status}`, null);
   }
 
   const body = await response.json().catch(() => ({}));

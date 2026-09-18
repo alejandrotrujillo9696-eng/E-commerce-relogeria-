@@ -29,9 +29,7 @@ function Login() {
     try {
       await dispatch(login({ email, password })).unwrap();
       toast.success(`¡Bienvenido de nuevo, ${email}!`);
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
+      navigate('/');
 
       setEmail('');
       setPassword('');

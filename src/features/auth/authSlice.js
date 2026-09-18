@@ -69,7 +69,6 @@ const authSlice = createSlice({
           state.user = action.payload.user;
           state.token = action.payload.token;
           setApiAuthToken(action.payload.token);
-          state.initialized = true;
           state.status = 'idle';
           state.error = null;
         }
