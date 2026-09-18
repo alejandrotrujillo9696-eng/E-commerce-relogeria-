@@ -2,20 +2,29 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeProductList from '../../components/HomeProduct/Home-ProductList';
 import { getMonthlyFeaturedProductRequest } from '../../services/homeSectionPublicService';
+import formatPrice from '../../utils/formatPrice';
 import './Home.css';
 
 function Home() {
   const [featuredProduct, setFeaturedProduct] = useState(null);
+  const [featuredLoaded, setFeaturedLoaded] = useState(false);
+  const [featuredError, setFeaturedError] = useState(false);
 
   useEffect(() => {
     let active = true;
 
     getMonthlyFeaturedProductRequest()
       .then(({ product }) => {
-        if (active) setFeaturedProduct(product);
+        if (!active) return;
+        setFeaturedProduct(product);
+        setFeaturedError(false);
+        setFeaturedLoaded(true);
       })
       .catch(() => {
-        if (active) setFeaturedProduct(null);
+        if (!active) return;
+        setFeaturedProduct(null);
+        setFeaturedError(true);
+        setFeaturedLoaded(true);
       });
 
     return () => {
@@ -174,7 +183,7 @@ function Home() {
 
 
       {/* DESTACADO */}
-      {featuredProduct && (
+      {featuredLoaded && !featuredError && (
         <section className="section featured">
 
         <div className="featured-content">
@@ -182,28 +191,28 @@ function Home() {
             DESTACADO DEL MES
           </p>
 
-          <h2>
-            {featuredProduct.name}
-          </h2>
-
-          <p>
-            {featuredProduct.description}
-          </p>
-
-          <Link
-            to={`/products/${featuredProduct.id}`}
-            className="btn btn-primary"
-          >
-            Explorar producto
-          </Link>
+          {featuredProduct ? (
+            <>
+              <h2>{featuredProduct.name}</h2>
+              <p>{featuredProduct.description}</p>
+              <p>{formatPrice(featuredProduct.price)}</p>
+              <Link
+                to={`/products/${featuredProduct.id}`}
+                className="btn btn-primary"
+              >
+                Explorar producto
+              </Link>
+            </>
+          ) : (
+            <p>Aún no hay ventas válidas registradas este mes.</p>
+          )}
         </div>
 
-        <div className="featured-media">
-    <img
-      src={featuredProduct.image}
-      alt={featuredProduct.name}
-    />
-  </div>
+        {featuredProduct && (
+          <div className="featured-media">
+            <img src={featuredProduct.image} alt={featuredProduct.name} />
+          </div>
+        )}
 
         </section>
       )}
