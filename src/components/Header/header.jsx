@@ -105,10 +105,10 @@ function Header() {
               <MDBDropdownMenu>
                 {user ? (
                   <>
-                    <MDBDropdownItem link>
+                    <MDBDropdownItem link className="user-menu-email">
                       {user.email || `${user.firstName} ${user.lastName}`}
                     </MDBDropdownItem>
-                    <MDBDropdownItem tag="button" type="button" onClick={handleLogout}>
+                    <MDBDropdownItem tag="button" type="button" onClick={handleLogout} className="logout-menu-btn">
                       Cerrar sesión
                     </MDBDropdownItem>
                   </>

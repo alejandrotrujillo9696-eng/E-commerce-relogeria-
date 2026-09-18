@@ -133,6 +133,45 @@
   color: #0051ff;
 }
 
+.user-menu-email {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  color: #1a1a2e !important;
+  padding: 0.6rem 1.1rem !important;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.logout-menu-btn {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  color: #ffffff !important;
+  background-color: #e74c3c !important;
+  border: none;
+  border-radius: 8px;
+  margin: 0.25rem 0.5rem 0.5rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  width: calc(100% - 1rem);
+}
+
+.logout-menu-btn:hover {
+  background-color: #c0392b !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.logout-menu-btn:active {
+  transform: translateY(0);
+}
+
 
 /* =========================================
    CARRITO
