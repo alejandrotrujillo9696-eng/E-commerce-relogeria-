@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import {
   MDBContainer,
@@ -15,12 +15,24 @@ import PasswordInput from '../../../components/PasswordInput/PasswordInput';
 import { login } from '../../../features/auth/authSlice';
 import './Login.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const socialError = searchParams.get('social_error');
+    if (!socialError) return;
+
+    toast.error(socialError);
+    searchParams.delete('social_error');
+    setSearchParams(searchParams, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -119,6 +131,7 @@ function Login() {
                 <p>o regístrate con:</p>
                 <MDBBtn
                   tag="a"
+                  href={`${API_URL}/auth/social/facebook`}
                   color="none"
                   className="mx-3"
                   style={{ color: '#1266f1' }}
@@ -127,6 +140,7 @@ function Login() {
                 </MDBBtn>
                 <MDBBtn
                   tag="a"
+                  href={`${API_URL}/auth/social/twitter`}
                   color="none"
                   className="mx-3"
                   style={{ color: '#1266f1' }}
@@ -135,6 +149,7 @@ function Login() {
                 </MDBBtn>
                 <MDBBtn
                   tag="a"
+                  href={`${API_URL}/auth/social/google`}
                   color="none"
                   className="mx-3"
                   style={{ color: '#1266f1' }}

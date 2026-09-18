@@ -7,10 +7,13 @@ CREATE TABLE IF NOT EXISTS users (
   last_name VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
+  social_provider VARCHAR(20) NULL,
+  social_provider_id VARCHAR(255) NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_users_email (email)
+  UNIQUE KEY uq_users_email (email),
+  UNIQUE KEY uq_users_social_identity (social_provider, social_provider_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS categories (

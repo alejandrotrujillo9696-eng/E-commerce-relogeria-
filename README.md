@@ -391,6 +391,10 @@ mysql -u [USUARIO] -p [NOMBRE_BASE_DATOS] < backend/database/seed-home-section.s
 | `NODE_ENV` | Entorno: `development` o `production`. |
 | `PORT` | Puerto del servidor backend. Por defecto: `3001`. |
 | `FRONTEND_URL` | URL del frontend permitida para CORS. Se permiten múltiples separadas por coma. |
+| `SOCIAL_AUTH_CALLBACK_BASE_URL` | URL pública del backend donde se registran los callbacks OAuth, por ejemplo `https://backend.example.com/api/auth/social`. |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Credenciales OAuth de Google. Solo en el entorno backend. |
+| `FACEBOOK_APP_ID` / `FACEBOOK_APP_SECRET` | Credenciales OAuth de Facebook. Solo en el entorno backend. |
+| `TWITTER_CLIENT_ID` / `TWITTER_CLIENT_SECRET` | Credenciales OAuth de X/Twitter. Solo en el entorno backend. |
 | `DB_HOST` | Host de MySQL. |
 | `DB_PORT` | Puerto de MySQL. Por defecto: `3306`. |
 | `DB_USER` | Usuario de MySQL. |

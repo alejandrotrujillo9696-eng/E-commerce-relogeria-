@@ -86,6 +86,23 @@ describe('Auth integration', () => {
     });
   });
 
+  it('muestra los enlaces OAuth de los tres proveedores', () => {
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/login']}>
+        <Login />
+      </MemoryRouter>,
+      { withRouter: false }
+    );
+
+    expect(screen.getAllByRole('button', { name: '' })).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ href: expect.stringContaining('/auth/social/facebook') }),
+        expect.objectContaining({ href: expect.stringContaining('/auth/social/twitter') }),
+        expect.objectContaining({ href: expect.stringContaining('/auth/social/google') }),
+      ])
+    );
+  });
+
   it('registro exitoso actualiza el estado de autenticación', async () => {
     const { registerRequest } = await import('../../services/authService');
     registerRequest.mockResolvedValue({ user: mockUser, token: 'fake-token' });

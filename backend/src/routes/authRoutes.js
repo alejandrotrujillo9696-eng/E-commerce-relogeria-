@@ -1,6 +1,13 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import { login, logout, me, register } from '../controllers/authController.js';
+import {
+  login,
+  logout,
+  me,
+  register,
+  socialCallback,
+  socialStart,
+} from '../controllers/authController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 import { validateCsrfToken } from '../middleware/csrfMiddleware.js';
 
@@ -36,5 +43,7 @@ router.post('/register', authLimiter, register);
 router.post('/login', loginLimiter, login);
 router.post('/logout', validateCsrfToken, logout);
 router.get('/me', authenticate, me);
+router.get('/social/:provider', socialStart);
+router.get('/social/:provider/callback', socialCallback);
 
 export default router;

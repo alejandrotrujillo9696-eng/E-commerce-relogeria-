@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import { verifyDatabaseConnection } from './config/db.js';
+import { ensureSocialAuthColumns, verifyDatabaseConnection } from './config/db.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import {
   ensureCsrfCookie,
@@ -51,6 +51,7 @@ app.use(cookieParser());
 
 app.get('/api/health', ensureCsrfCookie, async (_req, res, next) => {
   try {
+    await ensureSocialAuthColumns();
     await verifyDatabaseConnection();
 
     res.json({

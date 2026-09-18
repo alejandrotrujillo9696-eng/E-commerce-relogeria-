@@ -10,6 +10,18 @@ export const findUserByEmail = async (executor, email) => {
   return rows[0] || null;
 };
 
+export const findUserBySocialIdentity = async (executor, provider, providerId) => {
+  const [rows] = await executor.execute(
+    `SELECT id, first_name, last_name, email, role
+     FROM users
+     WHERE social_provider = ? AND social_provider_id = ?
+     LIMIT 1`,
+    [provider, providerId]
+  );
+
+  return rows[0] || null;
+};
+
 export const findUserById = async (executor, userId) => {
   const [rows] = await executor.execute(
     `SELECT id, first_name, last_name, email, role, created_at, updated_at
@@ -27,6 +39,24 @@ export const createUser = async (executor, user) => {
     `INSERT INTO users (first_name, last_name, email, password_hash)
      VALUES (?, ?, ?, ?)`,
     [user.firstName, user.lastName, user.email, user.passwordHash]
+  );
+
+  return findUserById(executor, result.insertId);
+};
+
+export const createSocialUser = async (executor, user) => {
+  const [result] = await executor.execute(
+    `INSERT INTO users
+      (first_name, last_name, email, password_hash, social_provider, social_provider_id)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.passwordHash,
+      user.provider,
+      user.providerId,
+    ]
   );
 
   return findUserById(executor, result.insertId);
