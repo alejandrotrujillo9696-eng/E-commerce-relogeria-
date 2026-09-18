@@ -1,11 +1,21 @@
 import {
   addHomeSectionItemService,
   getHomeSection as getHomeSectionService,
+  getMonthlyFeaturedProduct as getMonthlyFeaturedProductService,
   removeHomeSectionItemService,
   replaceHomeSectionItemsService,
   updateHomeSectionItemOrderService,
   updateHomeSectionTitleService,
 } from '../services/homeSectionService.js';
+
+export const getMonthlyFeaturedProduct = async (_req, res, next) => {
+  try {
+    const product = await getMonthlyFeaturedProductService();
+    res.json({ success: true, data: { product } });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const getHomeSection = async (_req, res, next) => {
   try {

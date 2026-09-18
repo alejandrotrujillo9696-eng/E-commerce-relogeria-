@@ -9,6 +9,7 @@ import {
   removeHomeSectionItem,
   updateHomeSectionItemOrder,
   updateHomeSectionTitle,
+  findMonthlyFeaturedProduct,
 } from '../models/homeModel.js';
 
 export const getHomeSection = async () => {
@@ -21,6 +22,19 @@ export const getHomeSection = async () => {
     }
 
     return section;
+  } finally {
+    connection.release();
+  }
+};
+
+export const getMonthlyFeaturedProduct = async () => {
+  const now = new Date();
+  const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+  const monthEnd = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
+  const connection = await pool.getConnection();
+
+  try {
+    return await findMonthlyFeaturedProduct(connection, monthStart, monthEnd);
   } finally {
     connection.release();
   }

@@ -1,8 +1,28 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeProductList from '../../components/HomeProduct/Home-ProductList';
+import { getMonthlyFeaturedProductRequest } from '../../services/homeSectionPublicService';
 import './Home.css';
 
 function Home() {
+  const [featuredProduct, setFeaturedProduct] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+
+    getMonthlyFeaturedProductRequest()
+      .then(({ product }) => {
+        if (active) setFeaturedProduct(product);
+      })
+      .catch(() => {
+        if (active) setFeaturedProduct(null);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <main className="home-container">
 
@@ -154,7 +174,8 @@ function Home() {
 
 
       {/* DESTACADO */}
-      <section className="section featured">
+      {featuredProduct && (
+        <section className="section featured">
 
         <div className="featured-content">
           <p className="eyebrow">
@@ -162,16 +183,15 @@ function Home() {
           </p>
 
           <h2>
-            Patek Philippe Woman
+            {featuredProduct.name}
           </h2>
 
           <p>
-            Una pieza de colección que representa
-            la excelencia relojera.
+            {featuredProduct.description}
           </p>
 
           <Link
-            to="/products"
+            to={`/products/${featuredProduct.id}`}
             className="btn btn-primary"
           >
             Explorar producto
@@ -180,12 +200,13 @@ function Home() {
 
         <div className="featured-media">
     <img
-      src="https://patek-res.cloudinary.com/dfsmedia/0906caea301d42b3b8bd23bd656d1711/278408-51883"
-      alt="Patek Philippe"
+      src={featuredProduct.image}
+      alt={featuredProduct.name}
     />
   </div>
 
-      </section>
+        </section>
+      )}
 
       
        {/* Esto OTRO CONTENEDOR PARA NUEVOS RELOGES */}
