@@ -387,6 +387,18 @@
   .section {
     padding: 80px 40px;
   }
+
+  .hero {
+    min-height: 620px;
+  }
+
+  .hero-content {
+    min-height: 620px;
+  }
+
+  .featured-content {
+    padding: 60px 40px;
+  }
 }
 
 
@@ -399,6 +411,7 @@
   .hero-content {
     min-height: 450px;
     padding: 50px 25px;
+    width: 100%;
   }
 
   .hero-content h1 {
@@ -416,6 +429,12 @@
 
   .section {
     padding: 70px 20px;
+  }
+
+  .collection-banner {
+    height: 360px;
+    width: 100%;
+    margin-left: 0;
   }
 
   .section-heading {
@@ -444,5 +463,10 @@
 
   .featured-media {
     min-height: 350px;
+  }
+
+  .featured {
+    padding-right: 20px;
+    padding-left: 20px;
   }
 }

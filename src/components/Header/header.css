@@ -183,15 +183,53 @@
 
 @media only screen and (max-width: 768px) {
 
+  .sticky-navbar > .container-fluid {
+    position: relative;
+    min-height: 56px;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  .sticky-navbar .ml-auto,
+  .sticky-navbar .LoginPerson {
+    position: static;
+    height: auto;
+    margin: 0;
+    transform: none;
+  }
+
+  .sticky-navbar .header-drop-down {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .sticky-navbar .navbar-toggler {
+    margin-right: 0;
+    padding: 0.5rem;
+  }
+
+  .sticky-navbar .navbar-toggler .header-MDBNavbarToggler {
+    margin-right: 0;
+  }
+
+  .sticky-navbar .navbar-collapse {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .sticky-navbar .navbar-nav {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
   .sticky-navbar .LoginPerson {
     display: flex;
     align-items: center;
-    position: fixed;
-    right: 0;
-    top: 6%;
-    transform: translateY(-50%);
-    margin-right: 15%;
-    height: 5%;
+    position: static;
+    transform: none;
+    margin-right: 0;
   }
 
   .sticky-navbar .navbar-nav .nav-item:not(:last-child)::after {
@@ -202,6 +240,21 @@
     font-size: 0.9rem;
   }
 
+}
+
+@media only screen and (max-width: 420px) {
+  .sticky-navbar .navbar-brand img {
+    max-width: 48px;
+    height: auto;
+  }
+
+  .sticky-navbar .header-drop-down {
+    gap: 0;
+  }
+
+  .sticky-navbar .navbar-toggler {
+    max-width: 44px;
+  }
 }
 
 

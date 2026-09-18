@@ -13,6 +13,21 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .product-card {
+    margin: 0;
+    max-width: none;
+  }
+
+  .product-image {
+    height: clamp(180px, 48vw, 260px);
+  }
+
+  .product-info {
+    padding: clamp(14px, 4vw, 20px);
+  }
+}
+
 .product-link {
   text-decoration: none;
   color: inherit;
