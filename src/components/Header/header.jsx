@@ -20,6 +20,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
 import { clearCart } from '../../features/cart/cartSlice';
+import logo from '../../assets/logo.jpg';
 import './header.css';
 function Header() {
   const [openNav, setOpenNav] = useState(false);
@@ -71,7 +72,7 @@ function Header() {
       <MDBContainer fluid>
         <MDBNavbarBrand>
           <img
-            src="./src/assets/e-com.png"
+            src={logo}
             height="50"
             alt="Logo"
             loading="lazy"
