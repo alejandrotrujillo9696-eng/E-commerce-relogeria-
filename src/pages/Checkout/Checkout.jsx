@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -29,6 +29,48 @@ function CheckoutPage() {
   const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [diagnosticVisible] = useState(true);
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+
+    const handleSubmitAttempt = () => {
+      diagnosticLog.push({ step: 'submit', status: 'intentado', error: null });
+    };
+
+    const handleInvalid = (e) => {
+      const target = e.target;
+      const fieldName = target.name || target.id || target.type || 'campo sin nombre';
+      diagnosticLog.push({
+        step: `invalid: ${fieldName}`,
+        status: 'bloqueado',
+        error: {
+          name: 'ValidationError',
+          message: JSON.stringify({
+            required: target.required,
+            valid: target.validity.valid,
+            valueMissing: target.validity.valueMissing,
+            typeMismatch: target.validity.typeMismatch,
+            patternMismatch: target.validity.patternMismatch,
+          }),
+        },
+      });
+    };
+
+    form.addEventListener('submit', handleSubmitAttempt);
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach((input) => {
+      input.addEventListener('invalid', handleInvalid);
+    });
+
+    return () => {
+      form.removeEventListener('submit', handleSubmitAttempt);
+      inputs.forEach((input) => {
+        input.removeEventListener('invalid', handleInvalid);
+      });
+    };
+  }, []);
 
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
@@ -80,7 +122,7 @@ function CheckoutPage() {
         <MDBCol md="7">
           <h2>Información de envio  |  Pago contraentrega</h2>
           <p className="payment-method-subtitle">Pagas en la puerta de tu casa.</p>
-          <form onSubmit={handleSubmit}>
+          <form ref={formRef} onSubmit={handleSubmit}>
             <MDBInput
               label="Nombre completo"
               value={form.shippingName}
