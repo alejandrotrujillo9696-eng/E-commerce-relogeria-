@@ -42,10 +42,18 @@ function CheckoutPage() {
     setLoading(true);
     setError('');
     try {
+      console.log('[CHECKOUT DEBUG] handleSubmit iniciado');
+      console.log('[CHECKOUT DEBUG] cartItems.length:', cartItems.length);
+      console.log('[CHECKOUT DEBUG] form keys:', Object.keys(form));
+      console.log('[CHECKOUT DEBUG] createOrderRequest llamado');
       const data = await createOrderRequest(form);
+      console.log('[CHECKOUT DEBUG] createOrderRequest completado');
       dispatch(clearCart());
       navigate('/thank-you', { state: { orderId: data.order.id } });
     } catch (err) {
+      console.log('[CHECKOUT DEBUG] error en handleSubmit');
+      console.log('[CHECKOUT DEBUG] error tipo:', typeof err);
+      console.log('[CHECKOUT DEBUG] error mensaje:', err?.message || err);
       setError(
         typeof err === 'string' ? err : 'No fue posible crear la orden.'
       );

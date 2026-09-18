@@ -1,10 +1,13 @@
 import apiClient from './apiClient';
 
-export const createOrderRequest = (shippingData) =>
-  apiClient('/orders', {
+export const createOrderRequest = (shippingData) => {
+  console.log('[ORDER DEBUG] createOrderRequest llamado');
+  console.log('[ORDER DEBUG] shippingData keys:', Object.keys(shippingData || {}));
+  return apiClient('/orders', {
     method: 'POST',
     body: JSON.stringify(shippingData),
   });
+};
 
 export const getOrderRequest = (orderId) => apiClient(`/orders/${orderId}`);
 export const getUserOrdersRequest = () => apiClient('/orders');
