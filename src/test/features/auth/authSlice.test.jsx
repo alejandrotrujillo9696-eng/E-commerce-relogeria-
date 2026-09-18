@@ -92,6 +92,29 @@ describe('authSlice', () => {
     expect(state.status).toBe('idle');
   });
 
+  it('logout pending limpia sesión e invalida loadCurrentUser pendiente', () => {
+    const state = authReducer(
+      {
+        user: mockUser,
+        token: 'token',
+        initialized: true,
+        status: 'idle',
+        error: null,
+        initializationRequestId: 'initial-load',
+      },
+      { type: logout.pending.type }
+    );
+
+    const staleResponse = authReducer(state, {
+      type: loadCurrentUser.fulfilled.type,
+      payload: { user: mockUser },
+      meta: { requestId: 'initial-load' },
+    });
+
+    expect(staleResponse.user).toBeNull();
+    expect(staleResponse.initializationRequestId).toBe('superseded-by-logout');
+  });
+
   it('clearAuthError limpia el error', () => {
     const state = authReducer(
       { user: null, initialized: true, status: 'idle', error: 'some error' },

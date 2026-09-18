@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderWithProviders } from '../helpers';
 import { screen, waitFor, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import Login from '../../pages/Auth/Login/Login';
 import Register from '../../pages/Auth/Register/Register';
@@ -202,6 +203,37 @@ describe('Auth integration', () => {
     );
 
     await store.dispatch(logout());
+
+    await waitFor(() => {
+      expect(store.getState().auth.user).toBeNull();
+    });
+  });
+
+  it('logout desde el botón del menú limpia el usuario', async () => {
+    const { logoutRequest } = await import('../../services/authService');
+    logoutRequest.mockResolvedValue({ message: 'Logged out' });
+
+    const user = userEvent.setup();
+    const { store } = renderWithProviders(
+      <MemoryRouter initialEntries={['/']}>
+        <Header />
+      </MemoryRouter>,
+      {
+        preloadedState: {
+          auth: {
+            user: mockUser,
+            initialized: true,
+            status: 'idle',
+            error: null,
+          },
+          cart: { items: [], status: 'idle', error: null },
+        },
+        withRouter: false,
+      }
+    );
+
+    await user.click(document.querySelector('.user-dropdown-toggle'));
+    await user.click(screen.getByText('Cerrar sesión'));
 
     await waitFor(() => {
       expect(store.getState().auth.user).toBeNull();

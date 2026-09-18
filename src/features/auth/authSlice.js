@@ -72,12 +72,22 @@ const authSlice = createSlice({
         state.initializationRequestId = null;
         clearApiAuthToken();
       })
+      .addCase(logout.pending, (state) => {
+        state.user = null;
+        state.token = null;
+        clearApiAuthToken();
+        state.status = 'loading';
+        state.initializationRequestId = 'superseded-by-logout';
+      })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
         clearApiAuthToken();
         state.status = 'idle';
-        state.initializationRequestId = null;
+      })
+      .addCase(logout.rejected, (state) => {
+        state.status = 'idle';
+        state.error = null;
       })
       .addMatcher(
         (action) =>

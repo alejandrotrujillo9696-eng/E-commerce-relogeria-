@@ -62,7 +62,10 @@ function Header() {
   };
 
   const handleLogout = async () => {
-    await dispatch(logout());
+    try {
+      await dispatch(logout()).unwrap();
+    } catch {
+    }
     dispatch(clearCart());
     navigate('/');
   };
@@ -105,7 +108,7 @@ function Header() {
                     <MDBDropdownItem link>
                       {user.email || `${user.firstName} ${user.lastName}`}
                     </MDBDropdownItem>
-                    <MDBDropdownItem link onClick={handleLogout}>
+                    <MDBDropdownItem tag="button" type="button" onClick={handleLogout}>
                       Cerrar sesión
                     </MDBDropdownItem>
                   </>
