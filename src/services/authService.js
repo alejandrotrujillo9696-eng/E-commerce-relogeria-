@@ -15,4 +15,5 @@ export const loginRequest = (credentials) =>
 export const logoutRequest = () =>
   apiClient('/auth/logout', { method: 'POST' });
 
-export const getCurrentUserRequest = () => apiClient('/auth/me');
+export const getCurrentUserRequest = () =>
+  apiClient('/auth/me', { redirectOnUnauthorized: false });

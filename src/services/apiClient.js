@@ -75,12 +75,13 @@ const getCsrfToken = async () => {
 };
 
 const apiClient = async (path, options = {}) => {
-  const method = options.method?.toUpperCase();
+  const { redirectOnUnauthorized = true, ...requestOptions } = options;
+  const method = requestOptions.method?.toUpperCase();
 
   const headers = {
     'Content-Type': 'application/json',
     ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
-    ...options.headers,
+    ...requestOptions.headers,
   };
 
   if (isMutatingMethod(method)) {
@@ -97,7 +98,7 @@ const apiClient = async (path, options = {}) => {
       response = await fetch(`${API_URL}${path}`, {
         credentials: 'include',
         headers,
-        ...options,
+        ...requestOptions,
         signal: controller.signal,
       });
       clearTimeout(timeoutId);
@@ -127,7 +128,9 @@ const apiClient = async (path, options = {}) => {
       localStorage.removeItem('cartItems');
 
       if (window.location.pathname !== '/login') {
-        window.location.assign('/login');
+        if (redirectOnUnauthorized) {
+          window.location.assign('/login');
+        }
       }
     }
 

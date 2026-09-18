@@ -43,10 +43,12 @@ function App() {
   }, [dispatch]);
 
   const mergeDoneRef = useRef(false);
+  const cartLoadStartedRef = useRef(false);
 
   useEffect(() => {
     if (!initialized || !user) {
       mergeDoneRef.current = false;
+      cartLoadStartedRef.current = false;
       return;
     }
 
@@ -65,7 +67,10 @@ function App() {
       }
     }
 
-    dispatch(loadCart());
+    if (!cartLoadStartedRef.current) {
+      cartLoadStartedRef.current = true;
+      dispatch(loadCart());
+    }
   }, [dispatch, initialized, user]);
 
   return (

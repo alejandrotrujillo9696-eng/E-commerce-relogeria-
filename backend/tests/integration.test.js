@@ -125,6 +125,27 @@ describe('Backend integration tests', () => {
       expect(response.body.data.user.email).toBe(email);
     });
 
+    test('GET /api/auth/me prioriza Bearer sobre una cookie distinta', async () => {
+      const cookieUserEmail = uniqueEmail('cookie-user');
+      const bearerUserEmail = uniqueEmail('bearer-user');
+      const cookieAgent = request.agent(app);
+      const bearerAgent = request.agent(app);
+
+      await cookieAgent
+        .post('/api/auth/register')
+        .send({ firstName: 'Cookie', lastName: 'User', email: cookieUserEmail, password: 'test1234' });
+      const bearerLogin = await bearerAgent
+        .post('/api/auth/register')
+        .send({ firstName: 'Bearer', lastName: 'User', email: bearerUserEmail, password: 'test1234' });
+
+      const response = await cookieAgent
+        .get('/api/auth/me')
+        .set('Authorization', `Bearer ${bearerLogin.body.data.token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.data.user.email).toBe(bearerUserEmail);
+    });
+
     test('GET /api/auth/me no autenticado -> 401', async () => {
       const response = await request(app).get('/api/auth/me');
       expect(response.status).toBe(401);

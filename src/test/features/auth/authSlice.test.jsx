@@ -38,6 +38,24 @@ describe('authSlice', () => {
     expect(state.status).toBe('idle');
   });
 
+  it('ignora una respuesta tardía de loadCurrentUser después del login', () => {
+    const pending = authReducer(undefined, {
+      type: loadCurrentUser.pending.type,
+      meta: { requestId: 'initial-load' },
+    });
+    const loggedIn = authReducer(pending, {
+      type: login.fulfilled.type,
+      payload: { user: mockUser, token: 'fresh-token' },
+    });
+    const state = authReducer(loggedIn, {
+      type: loadCurrentUser.rejected.type,
+      meta: { requestId: 'initial-load' },
+    });
+
+    expect(state.user).toEqual(mockUser);
+    expect(state.initialized).toBe(true);
+  });
+
   it('login fulfilled setea usuario y limpia error', () => {
     const state = authReducer(
       { user: null, initialized: false, status: 'idle', error: 'error' },

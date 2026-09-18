@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,7 +9,6 @@ import {
   MDBInput,
 } from 'mdb-react-ui-kit';
 import { createOrderRequest } from '../../services/orderService';
-import { diagnosticLog, resetDiagnosticLog } from '../../services/apiClient';
 import { clearCart } from '../../features/cart/cartSlice';
 import formatPrice from '../../utils/formatPrice';
 import './Checkout.css';
@@ -28,50 +27,6 @@ function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [diagnosticVisible] = useState(true);
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    const form = formRef.current;
-    if (!form) return;
-
-    const handleSubmitAttempt = () => {
-      diagnosticLog.push({ step: 'submit', status: 'intentado', error: null });
-    };
-
-    const handleInvalid = (e) => {
-      const target = e.target;
-      const fieldName = target.name || target.id || target.type || 'campo sin nombre';
-      diagnosticLog.push({
-        step: `invalid: ${fieldName}`,
-        status: 'bloqueado',
-        error: {
-          name: 'ValidationError',
-          message: JSON.stringify({
-            required: target.required,
-            valid: target.validity.valid,
-            valueMissing: target.validity.valueMissing,
-            typeMismatch: target.validity.typeMismatch,
-            patternMismatch: target.validity.patternMismatch,
-          }),
-        },
-      });
-    };
-
-    form.addEventListener('submit', handleSubmitAttempt);
-    const inputs = form.querySelectorAll('input, select, textarea');
-    inputs.forEach((input) => {
-      input.addEventListener('invalid', handleInvalid);
-    });
-
-    return () => {
-      form.removeEventListener('submit', handleSubmitAttempt);
-      inputs.forEach((input) => {
-        input.removeEventListener('invalid', handleInvalid);
-      });
-    };
-  }, []);
-
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
     0
@@ -85,17 +40,11 @@ function CheckoutPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    resetDiagnosticLog();
-    diagnosticLog.push({ step: 'handleSubmit', status: 'iniciado', error: null });
-    diagnosticLog.push({ step: 'cartItems.length', status: String(cartItems.length), error: null });
-    diagnosticLog.push({ step: 'createOrderRequest', status: 'llamado', error: null });
     try {
       const data = await createOrderRequest(form);
-      diagnosticLog.push({ step: 'createOrderRequest', status: 'completado', error: null });
       dispatch(clearCart());
       navigate('/thank-you', { state: { orderId: data.order.id } });
     } catch (err) {
-      diagnosticLog.push({ step: 'createOrderRequest', status: 'error', error: { name: err?.name, message: err?.message || err } });
       setError(
         typeof err === 'string' ? err : 'No fue posible crear la orden.'
       );
@@ -122,7 +71,7 @@ function CheckoutPage() {
         <MDBCol md="7">
           <h2>Información de envio  |  Pago contraentrega</h2>
           <p className="payment-method-subtitle">Pagas en la puerta de tu casa.</p>
-          <form ref={formRef} onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <MDBInput
               label="Nombre completo"
               value={form.shippingName}
@@ -163,27 +112,6 @@ function CheckoutPage() {
             <MDBBtn type="submit" disabled={loading || cartItems.length === 0}>
               {loading ? 'Procesando...' : 'Confirmar compra'}
             </MDBBtn>
-            {diagnosticVisible && (
-              <div style={{
-                marginTop: '1rem',
-                padding: '0.75rem',
-                border: '1px solid #ccc',
-                borderRadius: '0.5rem',
-                background: '#f7f7f7',
-                fontSize: '0.8rem',
-                lineHeight: '1.4',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word',
-              }}>
-                <strong>DIAGNÓSTICO TEMPORAL</strong>
-                {diagnosticLog.map((item, index) => {
-                  const statusText = item.error
-                    ? `ERROR: ${item.error.name} - ${item.error.message}`
-                    : item.status;
-                  return `${index + 1}. ${item.step}: ${statusText}\n`;
-                }).join('')}
-              </div>
-            )}
           </form>
         </MDBCol>
         <MDBCol md="5">

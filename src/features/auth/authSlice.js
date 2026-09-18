@@ -30,6 +30,7 @@ const initialState = {
   initialized: false,
   status: 'idle',
   error: null,
+  initializationRequestId: null,
 };
 
 const authSlice = createSlice({
@@ -42,24 +43,41 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loadCurrentUser.pending, (state) => {
+      .addCase(loadCurrentUser.pending, (state, action) => {
         state.status = 'loading';
+        state.initializationRequestId = action.meta.requestId;
       })
       .addCase(loadCurrentUser.fulfilled, (state, action) => {
+        if (
+          state.initializationRequestId &&
+          state.initializationRequestId !== action.meta.requestId
+        ) {
+          return;
+        }
         state.user = action.payload.user;
         state.initialized = true;
         state.status = 'idle';
+        state.initializationRequestId = null;
       })
-      .addCase(loadCurrentUser.rejected, (state) => {
+      .addCase(loadCurrentUser.rejected, (state, action) => {
+        if (
+          state.initializationRequestId &&
+          state.initializationRequestId !== action.meta.requestId
+        ) {
+          return;
+        }
         state.user = null;
         state.initialized = true;
         state.status = 'idle';
+        state.initializationRequestId = null;
+        clearApiAuthToken();
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
         clearApiAuthToken();
         state.status = 'idle';
+        state.initializationRequestId = null;
       })
       .addMatcher(
         (action) =>
@@ -69,6 +87,8 @@ const authSlice = createSlice({
           state.user = action.payload.user;
           state.token = action.payload.token;
           setApiAuthToken(action.payload.token);
+          state.initialized = true;
+          state.initializationRequestId = 'superseded-by-login';
           state.status = 'idle';
           state.error = null;
         }
