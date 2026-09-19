@@ -239,8 +239,8 @@ function Footer() {
                 <p>
                   <MDBIcon icon="envelope" />
 
-                  <a href="mailto:alejandrotrujillo9696@gmail.com">
-                    alejandrotrujillo9696@gmail.com
+                  <a href="mailto:manuel11bonilla502@gmail.com" target="_blank" rel="noopener noreferrer">
+                    manuel11bonilla502@gmail.com
                   </a>
                 </p>
 

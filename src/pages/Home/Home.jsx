@@ -81,6 +81,8 @@ function Home() {
 
       <Link
         to="https://wa.me/573118148510"
+        target="_blank"
+        rel="noopener noreferrer"
         className="btn btn-secondary"
       >
         Contáctanos

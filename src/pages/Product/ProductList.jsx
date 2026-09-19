@@ -40,34 +40,11 @@ function ProductList() {
     <>
       <div className="product-list-container">
         <div className="filters">
-          <input
-            type="text"
-            placeholder="Buscar por nombre"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-
-          <input
-            type="number"
-            placeholder="Precio mínimo"
-            value={minPrice}
-            min="0"
-            onChange={(e) => setMinPrice(e.target.value)}
-          />
-
-          <input
-            type="number"
-            placeholder="Precio máximo"
-            value={maxPrice}
-            min="0"
-            onChange={(e) => setMaxPrice(e.target.value)}
-          />
-
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="">Todas las categorías</option>
+            <option value="">Categorías</option>
 
             {categories.map((category) => (
               <option key={category.id} value={category.name}>
