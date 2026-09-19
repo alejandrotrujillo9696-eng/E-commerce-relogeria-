@@ -19,7 +19,7 @@ function Footer() {
       <section className="footer-top">
 
         <div className="footer-brand-phrase">
-          <h2>El verdadero lujo no es tener más, es tener tiempo.</h2>
+          <h2>El verdadero lujo no es tener más, es tener el tiempo en tus manos.</h2>
         </div>
 
         <div className="footer-social">
@@ -99,8 +99,8 @@ function Footer() {
             >
 
               <h3 className="footer-brand-name">
-                ALEJANDRO
-                <span>TRUJILLO</span>
+                MANUEL
+                <span>BONILLA</span>
               </h3>
 
               <p className="footer-brand-description">
@@ -205,7 +205,7 @@ function Footer() {
                 </li>
 
                 <li>
-                  <Link to="/contact">
+                  <Link to="https://wa.me/573118148510" target="_blank" rel="noopener noreferrer">
                     Contacto
                   </Link>
                 </li>
@@ -247,14 +247,15 @@ function Footer() {
                 <p>
                   <MDBIcon icon="phone" />
 
-                  <a href="https://wa.me/573118148510">
+                  <a href="https://wa.me/573118148510" target="_blank" rel="noopener noreferrer">
                     WhatsApp: +57 311 814 8510
                   </a>
                 </p>
 
                 <p>
-                  <MDBIcon icon="phone" />
-                  <span>+57 313 2811796</span>
+                  <Link to="https://wa.me/573132811796" target="_blank" rel="noopener noreferrer">
+                    Alejandro Trujillo Desarrollador web 
+                  </Link>
                 </p>
 
               </div>
@@ -316,7 +317,7 @@ function Footer() {
               <MDBIcon icon="user" />
 
               <span>
-                Atención personalizada
+                Atención personalizada 
               </span>
 
             </div>
