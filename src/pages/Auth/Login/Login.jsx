@@ -131,24 +131,6 @@ function Login() {
                 <p>o regístrate con:</p>
                 <MDBBtn
                   tag="a"
-                  href={`${API_URL}/auth/social/facebook`}
-                  color="none"
-                  className="mx-3"
-                  style={{ color: '#1266f1' }}
-                >
-                  <MDBIcon fab icon="facebook-f" size="sm" />
-                </MDBBtn>
-                <MDBBtn
-                  tag="a"
-                  href={`${API_URL}/auth/social/twitter`}
-                  color="none"
-                  className="mx-3"
-                  style={{ color: '#1266f1' }}
-                >
-                  <MDBIcon fab icon="twitter" size="sm" />
-                </MDBBtn>
-                <MDBBtn
-                  tag="a"
                   href={`${API_URL}/auth/social/google`}
                   color="none"
                   className="mx-3"

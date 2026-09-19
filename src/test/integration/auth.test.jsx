@@ -87,7 +87,7 @@ describe('Auth integration', () => {
     });
   });
 
-  it('muestra los enlaces OAuth de los tres proveedores', () => {
+  it('muestra el enlace OAuth de Google', () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/login']}>
         <Login />
@@ -97,8 +97,6 @@ describe('Auth integration', () => {
 
     expect(screen.getAllByRole('button', { name: '' })).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ href: expect.stringContaining('/auth/social/facebook') }),
-        expect.objectContaining({ href: expect.stringContaining('/auth/social/twitter') }),
         expect.objectContaining({ href: expect.stringContaining('/auth/social/google') }),
       ])
     );
