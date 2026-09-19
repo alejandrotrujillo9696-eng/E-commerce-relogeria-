@@ -2,12 +2,8 @@ import { MDBIcon } from 'mdb-react-ui-kit';
 import './WhatsAppButton.css';
 
 function WhatsAppButton() {
-  const rawNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
-  if (!rawNumber) {
-    return null;
-  }
-
-  const href = `https://wa.me/${rawNumber.replace(/[^0-9]/g, '')}`;
+  const phoneNumber = '573118148510';
+  const href = `https://wa.me/${phoneNumber}`;
 
   return (
     <a
